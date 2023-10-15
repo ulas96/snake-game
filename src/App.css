@@ -1,42 +1,73 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+:root {
+  --gray: #222736;
+  --light-gray: #6f7686;
+}
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 100vh;
+  user-select: none;
+  font-family: Roboto;
+  background: var(--gray);
+}
+.wrapper-score {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 30em;
+  margin: 0 0 1em 0;
+}
+.wrapper-score .score,
+.high-score {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--light-gray);
+}
+.score span,
+.high-score span {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--light-gray);
+  margin: 0.2em 0 0 0;
+}
+.wrapper-gameover {
+  display: none;
+  position: absolute;
   text-align: center;
+  transform: translate(0, 0);
 }
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.wrapper-gameover .gameover {
+  font-size: 4.8rem;
+  font-weight: 700;
+  color: var(--light-gray);
+  animation: moving 2.8s infinite;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.wrapper-gameover .restart {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--light-gray);
+  text-transform: uppercase;
+  margin: 3em 0 0 0;
+  padding: 0.4em;
+  border: 0.1em solid var(--light-gray);
+  border-radius: 0.2em;
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+@keyframes moving {
+  0% {
+    transform: scale(1);
   }
-  to {
-    transform: rotate(360deg);
+  50% {
+    transform: scale(1.2);
   }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+  100% {
+    transform: scale(1);
   }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }
