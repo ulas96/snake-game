@@ -31,7 +31,7 @@ contract Snake {
 
     mapping(uint => Game) public games;
 
-    mapping(address => uint) public currentGame;
+    mapping(address => uint) public currentGame; //existence: questionable
 
     mapping(address => uint) public claimableRewards;
 
@@ -41,7 +41,8 @@ contract Snake {
         require(currentGame[msg.sender] != 0);
         require(msg.value == amount);
         require(_snakeLength >= 0);
-        
+        totalPendingGames++;
+        pendingGames[totalPendingGames] = PendingGame(totalPendingGames, msg.sender, _snakeLength, msg.value, block.timestamp);
     }
 
 
