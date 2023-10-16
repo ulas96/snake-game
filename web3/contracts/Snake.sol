@@ -31,14 +31,14 @@ contract Snake {
 
     mapping(uint => Game) public games;
 
-    mapping(address => uint) public currentGame; //existence: questionable
+    //mapping(address => uint) public currentGame; //existence: questionable
 
     mapping(address => uint) public claimableRewards;
 
     mapping(address => uint) public claimedRewards;
 
     function createGame(uint _snakeLength) external payable {
-        require(currentGame[msg.sender] != 0);
+        //require(currentGame[msg.sender] != 0);
         require(msg.value == amount);
         require(_snakeLength >= 0);
         totalPendingGames++;
