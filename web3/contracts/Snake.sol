@@ -39,7 +39,7 @@ contract Snake {
 
     function createGame(uint _snakeLength) external payable {
         //require(currentGame[msg.sender] != 0);
-        require(msg.value == amount);
+        require(msg.value >= amount);
         require(_snakeLength >= 0);
         totalPendingGames++;
         pendingGames[totalPendingGames] = PendingGame(totalPendingGames, msg.sender, _snakeLength, msg.value, block.timestamp);
