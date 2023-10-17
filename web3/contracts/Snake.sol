@@ -11,7 +11,6 @@ contract Snake {
     struct PendingGame {
         uint id;
         address gameCreator;
-        uint snakeLength;
         uint value;
         uint timestamp;
     }
@@ -26,6 +25,8 @@ contract Snake {
         uint timestamp;
     }
 
+
+    mapping(uint => uint) public firstPlayersSnakeLength;
 
     mapping(uint => PendingGame) public pendingGames;
 
@@ -43,6 +44,7 @@ contract Snake {
         require(_snakeLength >= 0);
         totalPendingGames++;
         pendingGames[totalPendingGames] = PendingGame(totalPendingGames, msg.sender, _snakeLength, msg.value, block.timestamp);
+        firstPlayersSnakeLength[totalPendingGames] = _snakeLength;
     }
 
 
