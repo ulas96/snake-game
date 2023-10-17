@@ -53,7 +53,7 @@ contract Snake {
         require(msg.value >= value);
         require(_snakeLength >= 0);
         totalGames++;
-        games[_id] = Game()
+        games[totalGames] = Game(totalGames, pendingGames[_id].gameCreator, firstPlayersSnakeLength[_id], msg.sender, _snakeLength, amount, block.timestamp);
     }
 
 
