@@ -51,6 +51,9 @@ contract Snake {
     function joinGame(uint _id, uint _snakeLength) external payable {
         require(pendingGames[_id].active == true);
         require(msg.value >= value);
+        require(_snakeLength >= 0);
+        totalGames++;
+        games[_id] = Game()
     }
 
 
