@@ -44,13 +44,13 @@ contract Snake {
         require(msg.value >= amount);
         require(_snakeLength >= 0);
         totalPendingGames++;
-        pendingGames[totalPendingGames] = PendingGame(totalPendingGames, msg.sender, _snakeLength, msg.value, block.timestamp, true);
+        pendingGames[totalPendingGames] = PendingGame(totalPendingGames, msg.sender, msg.value, block.timestamp, true);
         firstPlayersSnakeLength[totalPendingGames] = _snakeLength;
     }
 
     function joinGame(uint _id, uint _snakeLength) external payable {
         require(pendingGames[_id].active == true);
-        require(msg.value >= value);
+        require(msg.value >= amount);
         require(_snakeLength >= 0);
         totalGames++;
         games[totalGames] = Game(totalGames, pendingGames[_id].gameCreator, firstPlayersSnakeLength[_id], msg.sender, _snakeLength, amount, block.timestamp);
