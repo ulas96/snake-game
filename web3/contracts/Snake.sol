@@ -23,6 +23,7 @@ contract Snake {
         address opt2;
         uint snakeLength2;
         uint value;
+        address winner;
         uint timestamp;
     }
 
@@ -52,11 +53,42 @@ contract Snake {
         require(pendingGames[_id].active == true);
         require(msg.value >= amount);
         require(_snakeLength >= 0);
+        address winner;
+        if(_snakeLength == firstPlayersSnakeLength[_id]) {
+            claimableRewards[pendingGames[_id].gameCreator] += amount;
+            claimableRewards[msg.sender] += amount;
+            winner = address(0);
+        } else if (_snakeLength <= firstPlayersSnakeLength[_id]) {
+            claimableRewards[pendingGames[_id].gameCreator] += (amount * 19) / 10;
+            winner = pendingGames[_id].gameCreator;
+        } else {
+            claimableRewards[msg.sender] += (amount * 19) / 10;
+            winner = msg.sender;
+        }
         totalGames++;
-        games[totalGames] = Game(totalGames, pendingGames[_id].gameCreator, firstPlayersSnakeLength[_id], msg.sender, _snakeLength, amount, block.timestamp);
+        games[totalGames] = Game(totalGames, pendingGames[_id].gameCreator, firstPlayersSnakeLength[_id], msg.sender, _snakeLength, pendingGames[_id].value, winner, block.timestamp);
     }
 
 
+    function claimRewards(uint256 _amount) public {
+        require(claimableRewards[msg.sender] > 0);
+        require(_amount <= claimableRewards[msg.sender]);
+        claimableRewards[msg.sender] -= _amount;
+        claimedRewards[msg.sender] += _amount;
+        payable(msg.sender).transfer(_amount);
+    }
+
+    function cancelGame(uint256 id) external {
+        require(msg.sender == pendingGames[id].gameCreator);
+        require(pendingGames[id].active == true);
+        pendingGames[id].active = false;
+        claimableRewards[msg.sender] += amount;
+    }
+
+    function withdraw(uint256 _amount) external {
+        require(msg.sender == owner);
+        payable(msg.sender).transfer(_amount);
+    }
 
 
 
